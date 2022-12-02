@@ -62,7 +62,7 @@ final class CameraManager: NSObject, CameraManagerProtocol {
 
       NotificationCenter.default.addObserver(self,
                                              selector: #selector(self.capturePhotoClicked),
-                                             name: Notification.Name("capturePhotoClicked"),
+                                             name: Notification.Name(AppConstant.Notifications.capturePhotoClicked),
                                              object: nil)
       try prepareCamera()
     }
@@ -73,7 +73,7 @@ final class CameraManager: NSObject, CameraManagerProtocol {
         cameraDevice = nil
           
         NotificationCenter.default.removeObserver(self,
-                                                name: Notification.Name("capturePhotoClicked"),
+                                                name: Notification.Name(AppConstant.Notifications.capturePhotoClicked),
                                                 object: nil)
             
     }

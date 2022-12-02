@@ -13,14 +13,21 @@ final class ViewController: NSViewController {
     @IBOutlet weak var cameraView: NSView!
     @IBOutlet weak var resolutionLabel: NSTextField!
     @IBOutlet weak var directoryTextField: NSTextField!
-
+    @IBOutlet weak var errorTextField: NSTextField!
+    
+    private var imageWidth: Double!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //TODO: need to refactor
+        imageWidth = 512
+        
         do {
             cameraManager = try CameraManager(containerView: cameraView)
             cameraManager.delegate = self
         } catch {
-          print(error.localizedDescription)
+            setErrorLabel(message: error.localizedDescription)
         }
     }
   
@@ -29,7 +36,7 @@ final class ViewController: NSViewController {
         do {
             try cameraManager.startSession()
         } catch {
-            print(error.localizedDescription)
+            setErrorLabel(message: error.localizedDescription)
         }
     }
   
@@ -38,12 +45,12 @@ final class ViewController: NSViewController {
         do {
             try cameraManager.stopSession()
         } catch {
-            print(error.localizedDescription)
+            setErrorLabel(message: error.localizedDescription)
         }
     }
     
     @IBAction private func capturePhoto(_ sender: NSButton) {
-        NotificationCenter.default.post(name: Notification.Name("capturePhotoClicked"),
+        NotificationCenter.default.post(name: Notification.Name(AppConstant.Notifications.capturePhotoClicked),
                                         object: nil)
     }
     
@@ -51,32 +58,40 @@ final class ViewController: NSViewController {
 
 extension ViewController: CameraManagerDelegate {
     func capturePhoto(image: NSImage) {
-        // Obtaining the Location of the Documents Directory
+        
+        var newImage = image
+        let resizedImage = image.resize(width: imageWidth)
+        if let resizedImage = resizedImage {
+            newImage = resizedImage
+        }
+        
+        resolutionLabel.cell?.title = "\(newImage.size.width) x \(newImage.size.height)"
+        
         let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        var appPhotoDir = documents.path + "/pix4ML/\(getDateAsString())/"
+        var appPhotoDir = documents.path + "/\(AppConstant.directoryName)/\(getDateAsString())/"
         if let cell = directoryTextField.cell {
-            appPhotoDir = documents.path + "/pix4ML/\(String(describing: cell.title))/"
+            if cell.title != "" {
+                appPhotoDir = documents.path + "/\(AppConstant.directoryName)/\(String(describing: cell.title))/"
+            }
         }
         do {
             try FileManager.default.createDirectory(atPath: appPhotoDir, withIntermediateDirectories: true)
         } catch {
-            print("Unable to Create a directory at Documents")
+            setErrorLabel(message: "Unable to Create a directory at Documents")
         }
 
         let uuid = UUID().uuidString + ".png"
         let finalPath = "file://" + appPhotoDir + uuid
-        let url = URL(string: finalPath)!
+        guard let url = URL(string: finalPath) else { return }
         
-        if let imgRep = image.representations[0] as? NSBitmapImageRep
-        {
-            if let data = imgRep.representation(using: NSBitmapImageRep.FileType.png, properties: [:])
-            {
-                do {
-                    try data.write(to: url)
-                } catch {
-                    print("Unable to Write Image Data to Disk")
-                }
+        if let data = newImage.pngData(size: CGSize(width: newImage.size.width, height: newImage.size.height)) {
+            do {
+                try data.write(to: url)
+            } catch {
+                setErrorLabel(message: "Unable to Write Image Data to Disk")
             }
+        } else {
+            print("data is null")
         }
     }
     
@@ -89,6 +104,10 @@ extension ViewController: CameraManagerDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd-hh-mm"
         return dateFormatter.string(from: date)
+    }
+    
+    func setErrorLabel(message: String) {
+        errorTextField.cell?.title = message
     }
     
 }
