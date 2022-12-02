@@ -8,38 +8,39 @@
 import Cocoa
 
 final class ViewController: NSViewController {
-  private var cameraManager: CameraManagerProtocol!
-  
+    private var cameraManager: CameraManagerProtocol!
+
     @IBOutlet weak var cameraView: NSView!
     @IBOutlet weak var resolutionLabel: NSTextField!
-    
+    @IBOutlet weak var directoryTextField: NSTextField!
+
     override func viewDidLoad() {
-    super.viewDidLoad()
-    do {
-      cameraManager = try CameraManager(containerView: cameraView)
-      cameraManager.delegate = self
-    } catch {
-      print(error.localizedDescription)
+        super.viewDidLoad()
+        do {
+            cameraManager = try CameraManager(containerView: cameraView)
+            cameraManager.delegate = self
+        } catch {
+          print(error.localizedDescription)
+        }
     }
-  }
   
-  override func viewDidAppear() {
-    super.viewDidAppear()
-    do {
-      try cameraManager.startSession()
-    } catch {
-      print(error.localizedDescription)
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        do {
+            try cameraManager.startSession()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
-  }
   
-  override func viewDidDisappear() {
-    super.viewDidDisappear()
-    do {
-      try cameraManager.stopSession()
-    } catch {
-      print(error.localizedDescription)
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        do {
+            try cameraManager.stopSession()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
-  }
     
     @IBAction private func capturePhoto(_ sender: NSButton) {
         NotificationCenter.default.post(name: Notification.Name("capturePhotoClicked"),
@@ -49,10 +50,13 @@ final class ViewController: NSViewController {
 }
 
 extension ViewController: CameraManagerDelegate {
-    func takePhoto(image: NSImage) {
+    func capturePhoto(image: NSImage) {
         // Obtaining the Location of the Documents Directory
         let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let appPhotoDir = documents.path + "/pix4ML/\(getDate())/"
+        var appPhotoDir = documents.path + "/pix4ML/\(getDateAsString())/"
+        if let cell = directoryTextField.cell {
+            appPhotoDir = documents.path + "/pix4ML/\(String(describing: cell.title))/"
+        }
         do {
             try FileManager.default.createDirectory(atPath: appPhotoDir, withIntermediateDirectories: true)
         } catch {
@@ -80,7 +84,7 @@ extension ViewController: CameraManagerDelegate {
         //print(Date())
     }
     
-    func getDate() -> String {
+    func getDateAsString() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd-hh-mm"
