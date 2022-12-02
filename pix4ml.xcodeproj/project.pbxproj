@@ -75,6 +75,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		90CAB7602939EE4D0067A9EC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F07A15CD1EADFDC500E8FA1B /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		90CAB7612939EE5E0067A9EC /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				EBAE9C5B2832D5830061CDEE /* CameraManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		90CAB7622939EE6D0067A9EC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F07A15D11EADFDC500E8FA1B /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		90CAB7632939EE7E0067A9EC /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				F07A15CB1EADFDC500E8FA1B /* AppDelegate.swift */,
+				F07A15D41EADFDC500E8FA1B /* Info.plist */,
+				F07A15CF1EADFDC500E8FA1B /* Assets.xcassets */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
 		F07A15BF1EADFDC500E8FA1B = {
 			isa = PBXGroup;
 			children = (
@@ -98,12 +132,10 @@
 		F07A15CA1EADFDC500E8FA1B /* pix4ml */ = {
 			isa = PBXGroup;
 			children = (
-				F07A15CB1EADFDC500E8FA1B /* AppDelegate.swift */,
-				EBAE9C5B2832D5830061CDEE /* CameraManager.swift */,
-				F07A15CD1EADFDC500E8FA1B /* ViewController.swift */,
-				F07A15CF1EADFDC500E8FA1B /* Assets.xcassets */,
-				F07A15D11EADFDC500E8FA1B /* Main.storyboard */,
-				F07A15D41EADFDC500E8FA1B /* Info.plist */,
+				90CAB7632939EE7E0067A9EC /* Libs */,
+				90CAB7612939EE5E0067A9EC /* Managers */,
+				90CAB7622939EE6D0067A9EC /* Views */,
+				90CAB7602939EE4D0067A9EC /* Controllers */,
 			);
 			path = pix4ml;
 			sourceTree = "<group>";
