@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90CAB765293A25CB0067A9EC /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CAB764293A25CB0067A9EC /* AppConstant.swift */; };
+		90CAB768293A2E8A0067A9EC /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CAB767293A2E8A0067A9EC /* NSImage.swift */; };
 		EBAE9C5C2832D5830061CDEE /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAE9C5B2832D5830061CDEE /* CameraManager.swift */; };
 		EBAE9C5D2832D5830061CDEE /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAE9C5B2832D5830061CDEE /* CameraManager.swift */; };
 		F07A15CC1EADFDC500E8FA1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07A15CB1EADFDC500E8FA1B /* AppDelegate.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		90CAB764293A25CB0067A9EC /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
+		90CAB767293A2E8A0067A9EC /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
 		EBAE9C5B2832D5830061CDEE /* CameraManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		F07A15C81EADFDC500E8FA1B /* pix4ml.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pix4ml.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F07A15CB1EADFDC500E8FA1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,11 +106,21 @@
 		90CAB7632939EE7E0067A9EC /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				90CAB766293A2E750067A9EC /* Extensions */,
 				F07A15CB1EADFDC500E8FA1B /* AppDelegate.swift */,
+				90CAB764293A25CB0067A9EC /* AppConstant.swift */,
 				F07A15D41EADFDC500E8FA1B /* Info.plist */,
 				F07A15CF1EADFDC500E8FA1B /* Assets.xcassets */,
 			);
 			path = Libs;
+			sourceTree = "<group>";
+		};
+		90CAB766293A2E750067A9EC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				90CAB767293A2E8A0067A9EC /* NSImage.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		F07A15BF1EADFDC500E8FA1B = {
@@ -134,8 +148,8 @@
 			children = (
 				90CAB7632939EE7E0067A9EC /* Libs */,
 				90CAB7612939EE5E0067A9EC /* Managers */,
-				90CAB7622939EE6D0067A9EC /* Views */,
 				90CAB7602939EE4D0067A9EC /* Controllers */,
+				90CAB7622939EE6D0067A9EC /* Views */,
 			);
 			path = pix4ml;
 			sourceTree = "<group>";
@@ -297,6 +311,8 @@
 				F07A15CE1EADFDC500E8FA1B /* ViewController.swift in Sources */,
 				EBAE9C5C2832D5830061CDEE /* CameraManager.swift in Sources */,
 				F07A15CC1EADFDC500E8FA1B /* AppDelegate.swift in Sources */,
+				90CAB765293A25CB0067A9EC /* AppConstant.swift in Sources */,
+				90CAB768293A2E8A0067A9EC /* NSImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,7 +458,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 6779ZX9D28;
-				INFOPLIST_FILE = pix4ml/Info.plist;
+				INFOPLIST_FILE = pix4ml/Libs/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Pix4ML;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -458,7 +474,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 6779ZX9D28;
-				INFOPLIST_FILE = pix4ml/Info.plist;
+				INFOPLIST_FILE = pix4ml/Libs/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Pix4ML;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
